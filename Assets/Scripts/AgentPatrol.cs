@@ -83,11 +83,10 @@ public class AgentPatrol : MonoBehaviour
         PathStatus = _navAgent.pathStatus;
 
 
-        if (_agent.State != AgentState.Patrol)
+        if (_agent.State != AgentState.Patrol) //If not In Patrol State Out From Update
         {
             return;
         }
-
 
         _navAgent.isStopped = false;
         float distance = Vector3.Distance(transform.position, WaypointNetwork.Waypoints[CurrentIndex].position);
