@@ -82,26 +82,26 @@ public class AgentPatrol : MonoBehaviour
         PathStale = _navAgent.isPathStale;
         PathStatus = _navAgent.pathStatus;
 
-        
-        if (_agent.State == AgentState.Patrol)
-        {
-            _navAgent.isStopped = false;
-            float distance = Vector3.Distance(transform.position , WaypointNetwork.Waypoints[CurrentIndex].position);
-            if (distance < 10) 
-            {
-               SetNextDestination(true);
-            }
-            else
-              SetNextDestination(false);
 
-        }
-        if (_agent.State == AgentState.GoToEnemy || _agent.State == AgentState.Attack)
+        if (_agent.State != AgentState.Patrol)
         {
-            _navAgent.isStopped = true;
+            return;
         }
+
+
+        _navAgent.isStopped = false;
+        float distance = Vector3.Distance(transform.position, WaypointNetwork.Waypoints[CurrentIndex].position);
+        if (distance < 3)
+        {
+            SetNextDestination(true);
+        }
+        else
+            SetNextDestination(false);
+
+
     }
 
-  
+
 }
 
 

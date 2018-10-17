@@ -70,8 +70,17 @@ public class Agent : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);// Get The Distance From Every Enemy In List
 
-            SetState(distance < GoToEnemyDistance? AgentState.GoToEnemy : AgentState.Patrol, enemy); //If In Range Of Sight Go To Enemys Position
-            SetState(distance < AttackDistance ? AgentState.Attack : AgentState.Patrol, enemy); //If In Range Of Fire Start Attacking The Enemy
+
+            if (distance < GoToEnemyDistance)//If In Range Of Sight Go To Enemys Position
+            {
+                SetState(AgentState.GoToEnemy,enemy);
+            }
+            if (distance < AttackDistance)
+            {
+                SetState(AgentState.Attack, enemy);
+            }
+
+
         }
     }
     /// <summary>
@@ -154,6 +163,6 @@ public class Agent : MonoBehaviour
     private void EnemyDiedEvent(GameObject enemy)
     {
         _enemysAroundMe.Remove(enemy); //Remove From List 
-         SetState(AgentState.Patrol); //Go Back To Patrol State
+       SetState(AgentState.Patrol,null); //Go Back To Patrol State
     }
 }
