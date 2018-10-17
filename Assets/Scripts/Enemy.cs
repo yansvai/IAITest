@@ -31,7 +31,14 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void Die()
     {
-        EnemyDieEvent(gameObject);//Run Event In Agent
+        if (EnemyDieEvent != null)
+        {
+            EnemyDieEvent(gameObject); //Run Event In Agent
+        }
+        else
+        { Debug.Log("Null"); }
+        
+
         Destroy(gameObject);
     }
 }

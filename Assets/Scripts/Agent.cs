@@ -30,24 +30,33 @@ public class Agent : MonoBehaviour
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField]private List<GameObject> _enemysAroundMe;
 
-    
- 
-   
+    private void OnEnable()
+    {
+       Enemy.EnemyDieEvent += EnemyDiedEvent;
+    }
 
-   
-    
+    private void OnDisable()
+    {
+        // ReSharper disable once DelegateSubtraction
+        Enemy.EnemyDieEvent -= EnemyDiedEvent;
+    }
+
+
+
+
+
+
+
+
 
     // Use this for initialization
     void Start ()
     {
         Sphere.enabled = true; //Sphere On Map
-        Enemy.EnemyDieEvent += EnemyDiedEvent;  //Reg To Enemy Dided Event
+     
          _navMeshAgent = GetComponent<NavMeshAgent>();
     }
-    private void OnDisable()
-    {
-        Enemy.EnemyDieEvent -= EnemyDiedEvent;
-    }
+  
     // Update is called once per frame
     void Update ()
 	{
@@ -104,9 +113,10 @@ public class Agent : MonoBehaviour
     /// GO To Enemy Event Handler
     /// </summary>
     /// <param name="enemyLocation"></param>
-    private void GoToEnemy(Vector3 enemyLocation)
+    private void GoToEnemy(GameObject enemyLocation)
     {
-        _navMeshAgent.SetDestination(enemyLocation);
+        _navMeshAgent.isStopped = false;
+        _navMeshAgent.destination=(enemyLocation.transform.position);
     }
 
 
@@ -148,9 +158,19 @@ public class Agent : MonoBehaviour
                 break;
 
             case AgentState.GoToEnemy:
-                Debug.Log("Go To Location");
-                State = AgentState.GoToEnemy;
-                GoToEnemy(enemyGameObject.transform.position);
+                try
+                {
+                   Debug.Log("Go To Location");
+                   State = AgentState.GoToEnemy;
+                   GoToEnemy(enemyGameObject);
+                    
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+             
                 break;
 
         }
@@ -162,7 +182,10 @@ public class Agent : MonoBehaviour
     /// <param name="enemy"></param>
     private void EnemyDiedEvent(GameObject enemy)
     {
-        _enemysAroundMe.Remove(enemy); //Remove From List 
-       SetState(AgentState.Patrol,null); //Go Back To Patrol State
+        _enemysAroundMe.Remove(enemy);
+        SetState(AgentState.Patrol, null);
+         //Remove From List 
+      
+      
     }
 }
