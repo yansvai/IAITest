@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     public Vector3 Location;
     public static Action<GameObject> EnemyDieEvent;
     public MeshRenderer Sphere;
+    [SerializeField] private NavMeshAgent _navMeshAgent;
+    [SerializeField] private Animator _animator;
 
 
     // Use this for initialization
@@ -18,6 +20,8 @@ public class Enemy : MonoBehaviour
     {
         //Turn On Sphere On Map
         Sphere.enabled=true;
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponentInChildren<Animator>();
     }
 	
 	// Update is called once per frame
@@ -31,14 +35,16 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void Die()
     {
+
+        _navMeshAgent.isStopped = true;
+        _animator.enabled = false;
         if (EnemyDieEvent != null)
         {
             EnemyDieEvent(gameObject); //Run Event In Agent
         }
-        else
-        { Debug.Log("Null"); }
-        
 
-        Destroy(gameObject);
+        Destroy(gameObject,3);
+
+
     }
 }

@@ -127,14 +127,7 @@ public class Agent : MonoBehaviour
     private void Attack(GameObject enemy)
     {
         _navMeshAgent.isStopped = true; //Stop Moveing When Attack
-
-        //Rotate Gun Towards Enemy
-        Vector3 targetDir = enemy.transform.position - Gun.transform.position;
-        float step = 10 * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(Gun.transform.forward, new Vector3(targetDir.x,Gun.transform.rotation.y,targetDir.z), step, .0f);
-        Gun.transform.rotation = Quaternion.LookRotation(newDir);
-
-        Gun.Fire(); //Fire The Gun
+        Gun.Fire(enemy); //Fire The Gun
     }
     
 

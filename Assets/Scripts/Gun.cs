@@ -22,9 +22,15 @@ public class Gun : MonoBehaviour
 	   
 	}
 
-    public void Fire()
+    public void Fire(GameObject enemy)
     {
-       var rounds = Rounds;
+        //Rotate Gun Towards Enemy
+        Vector3 targetDir = enemy.transform.position - transform.position;
+        float step = 3 * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, new Vector3(targetDir.x, transform.rotation.y, targetDir.z), step, .0f);
+        transform.rotation = Quaternion.LookRotation(newDir);
+
+        var rounds = Rounds;
         if (rounds > 0)
         {
             rounds--;
