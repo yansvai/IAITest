@@ -42,8 +42,12 @@ public class Enemy : MonoBehaviour
         {
             EnemyDieEvent(gameObject); //Run Event In Agent
         }
+        else
+        {
+            Debug.LogError("EnemyDieEvent =null");
+        }
 
-        Destroy(gameObject,3);
+        Destroy(gameObject,1.5f);
 
 
     }

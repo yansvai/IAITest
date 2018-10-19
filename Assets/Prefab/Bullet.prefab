@@ -59,7 +59,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: eb3e320413eb4d346a7e6c036631415c, type: 2}
+  - {fileID: 2100000, guid: 8d1098a9d220e264190309dbb4345aa8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,9 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6002dfdaab740734f82a2d6032948b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!136 &136631970099999180
 CapsuleCollider:
   m_ObjectHideFlags: 1

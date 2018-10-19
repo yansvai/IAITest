@@ -40,14 +40,7 @@ public class Agent : MonoBehaviour
         // ReSharper disable once DelegateSubtraction
         Enemy.EnemyDieEvent -= EnemyDiedEvent;
     }
-
-
-
-
-
-
-
-
+    
 
     // Use this for initialization
     void Start ()
@@ -175,9 +168,9 @@ public class Agent : MonoBehaviour
     /// <param name="enemy"></param>
     private void EnemyDiedEvent(GameObject enemy)
     {
-        _enemysAroundMe.Remove(enemy);
+        _enemysAroundMe.Remove(enemy); //Remove From List 
         SetState(AgentState.Patrol, null);
-         //Remove From List 
+        
       
       
     }

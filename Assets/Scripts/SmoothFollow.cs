@@ -7,7 +7,7 @@ public class SmoothFollow : MonoBehaviour
     public float height = 5.0f;
     public float heightDamping = 2.0f;
     public float rotationDamping = 3.0f;
-    public bool _isSecondView = false;
+
     public Transform target;
     
 
@@ -23,8 +23,6 @@ public class SmoothFollow : MonoBehaviour
 
      
         // Calculate the current rotation angles
-        if (!_isSecondView)
-        {
             float wantedRotationAngle = target.eulerAngles.y;
             float wantedHeight = target.position.y + height;
             float currentRotationAngle = transform.eulerAngles.y;
@@ -48,7 +46,7 @@ public class SmoothFollow : MonoBehaviour
 
             // Always look at the target
             transform.LookAt(target); 
-        }
+        
     }
 
    

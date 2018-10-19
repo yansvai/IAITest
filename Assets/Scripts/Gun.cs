@@ -24,13 +24,16 @@ public class Gun : MonoBehaviour
 
     public void Fire(GameObject enemy)
     {
+       
         //Rotate Gun Towards Enemy
         Vector3 targetDir = enemy.transform.position - transform.position;
         float step = 3 * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, new Vector3(targetDir.x, transform.rotation.y, targetDir.z), step, .0f);
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, new Vector3(targetDir.x, transform.rotation.y, targetDir.z),step, 0f);
         transform.rotation = Quaternion.LookRotation(newDir);
 
-        var rounds = Rounds;
+        var rounds = Rounds;//reset rounds
+
+        //fire Bullets
         if (rounds > 0)
         {
             rounds--;
@@ -38,7 +41,7 @@ public class Gun : MonoBehaviour
             var temp = Instantiate(Bullet, spawn.transform.position, spawn.transform.rotation) as GameObject;
             temp.transform.Rotate(Vector3.left * 90);
             temp.GetComponent<Rigidbody>().AddForce(transform.forward * BulletSpeed);
-            Destroy(temp, 3);
+            Destroy(temp, 1);
         }
     }
 }
